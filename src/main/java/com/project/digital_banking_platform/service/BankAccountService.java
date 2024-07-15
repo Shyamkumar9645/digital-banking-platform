@@ -1,8 +1,8 @@
 package com.project.digital_banking_platform.service;
 
 
-import com.project.digital_banking_platform.entity.BankAccount;
-import com.project.digital_banking_platform.repository.BankAccountRepository;
+import com.project.digital_banking_platform.entity.Account;
+import com.project.digital_banking_platform.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,17 +13,17 @@ import java.util.Optional;
 public class BankAccountService {
 
     @Autowired
-    private BankAccountRepository repository;
+    private AccountRepository repository;
 
-    public List<BankAccount> findAll() {
+    public List<Account> findAll() {
         return repository.findAll();
     }
 
-    public Optional<BankAccount> findById(Long id) {
+    public Optional<Account> findById(Long id) {
         return repository.findById(id);
     }
 
-    public BankAccount save(BankAccount account) {
+    public Account save(Account account) {
         return repository.save(account);
     }
 

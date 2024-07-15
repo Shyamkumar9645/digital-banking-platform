@@ -1,70 +1,55 @@
 package com.project.digital_banking_platform.entity;
 
-// User.java
-
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Date;
 @Entity
 @Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
-    @NotBlank
-    @Size(max = 50)
-    @Column(unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
 
+    @Column(nullable = false, length = 255)
+    private String passwordHash;
 
-    @NotBlank
-    @Size(max = 100)
-    @Email
-    @Column(unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @NotBlank
-    @Size(max = 120)
-    private String password;
+    @Column(nullable = false, length = 50)
+    private String firstName;
 
-    public @NotBlank @Size(max = 50) String getUsername() {
-        return username;
-    }
+    @Column(nullable = false, length = 50)
+    private String lastName;
 
-    public void setUsername(@NotBlank @Size(max = 50) String username) {
-        this.username = username;
-    }
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(length = 20)
+    private String phoneNumber;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Lob
+    private String address;
 
-    public @NotBlank @Size(max = 100) @Email String getEmail() {
-        return email;
-    }
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @org.hibernate.annotations.CreationTimestamp
+    private Date createdAt;
 
-    public void setEmail(@NotBlank @Size(max = 100) @Email String email) {
-        this.email = email;
-    }
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @org.hibernate.annotations.UpdateTimestamp
+    private Date updatedAt;
 
-    public @NotBlank @Size(max = 120) String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@NotBlank @Size(max = 120) String password) {
-        this.password = password;
-    }
-
-
-    // Getters and setters
+    // Getters and Setters
 }
-
-// UserRepository.java

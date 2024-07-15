@@ -5,27 +5,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-    public User registerUser(String username, String email, String password) {
-        if (userRepository.existsByUsername(username)) {
-            throw new RuntimeException("Username is already taken");
-        }
-        if (userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email is already in use");
-        }
-
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
-
+    public User createUser(User user) {
+        // Add validation and business logic here
         return userRepository.save(user);
     }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    // Add more methods as needed
 }

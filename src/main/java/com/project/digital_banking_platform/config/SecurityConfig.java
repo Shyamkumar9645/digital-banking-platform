@@ -31,11 +31,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**","/api/**").permitAll()
                         .anyRequest().authenticated()
                 )
-
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**"));
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**","/api/**"));
         return http.build();
     }
 
